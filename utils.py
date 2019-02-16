@@ -3,7 +3,8 @@ from itertools import repeat
 import numpy as np
 import pandas as pd
 
-PATH = "../data/IDAO/IDAO-MuID/"
+# a folder with initial csv data and where is hits features will be created
+PATH = ""
 
 SIMPLE_FEATURE_COLUMNS = ['ncl[0]', 'ncl[1]', 'ncl[2]', 'ncl[3]', 'avg_cs[0]',
        'avg_cs[1]', 'avg_cs[2]', 'avg_cs[3]', 'ndof', 'MatchedHit_TYPE[0]',

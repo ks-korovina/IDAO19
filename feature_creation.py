@@ -11,29 +11,6 @@ import swifter
 def add_nshared_eq_zero(df):
     df["NShared_eq_zero"] = (df.NShared == 0).astype(int)
 
-#def parse_FOI(df):
-#     FOI_S_concatenated = np.concatenate(df.FOI_hits_S.values)
-#     FOI_hits_X_flat = np.concatenate(df.FOI_hits_X.values)
-#     FOI_hits_Y_flat = np.concatenate(df.FOI_hits_Y.values)
-#     split_by = np.cumsum(df.FOI_hits_N.values.astype(int))[:-1]
-    
-#     for i in range(1, 5):
-#         FOI_hits_X_flat_cur = FOI_hits_X_flat.copy()
-#         FOI_hits_X_flat_cur[FOI_S_concatenated != i] = np.nan
-        
-#         df["FOI_hits_X_%i" % i] = np.split(FOI_hits_X_flat_cur, split_by) - df["Lextra_X[%i]" % (i-1)]
-        
-#         FOI_hits_X_flat_cur = FOI_hits_Y_flat.copy()
-#         FOI_hits_X_flat_cur[FOI_S_concatenated != i] = np.nan
-#         df["FOI_hits_Y_%i" % i] = np.split(FOI_hits_X_flat_cur, split_by) - df["Lextra_Y[%i]" % (i-1)]
-
-# def add_nanmean_and_median(df):
-#     for coor in ["X", "Y"]:
-#         for i in range(1, 5):
-#             df["FOI_hits_%s_%i_mean" % (coor, i)] = df["FOI_hits_%s_%i" % (coor, i)].swifter.apply(lambda x: np.nanmean(x))
-#             df["FOI_hits_%s_%i_median" % (coor, i)] = df["FOI_hits_%s_%i" % (coor, i)].swifter.apply(lambda x: np.nanmedian(x))
-
-
 def add_distance_to_closest(df):
     for i in range(4):
         df["dx_%i_squared" % i] = (df["Lextra_X[%i]" % i] - df["MatchedHit_X[%i]" % i])**2
@@ -120,29 +97,7 @@ def add_coordinates_features(df):
         "phi_diff_10", "phi_diff_21", "phi_diff_32"
     ]
     df.drop(columns=intermediate_features_to_drop, inplace=True)
-    
-
-
-# def compute_d2_with_closest(row):
-#     # TODO
-
-#     df.loc[:, "d2_matched"] = 0.
-#     for station in range(4):
-#         lextra_x, lextra_y = df["Lextra_X[{}]".format(station)],\
-#                              df["Lextra_Y[{}]".format(station)]
-    
-#         # TODO: actual closest from all FOI: CHANGE THE NAME HERE
-#         closest_x, closest_y = df["closest_x_{}".format(station)], \
-#                                df["closest_y_{}".format(station)]
-        
-#         x_dist = closest_x - lextra_x
-#         y_dist = closest_y - lextra_y
-#         pad_x = df["MatchedHit_DX[{}]".format(station)]
-#         pad_y = df["MatchedHit_DY[{}]".format(station)]
-#         df["d2_matched"] += (x_dist/pad_x) ** 2 + (y_dist/pad_y) ** 2
-#     df["d2_matched"] /= 4
-#     return df
-
+    s
 
 def compute_d2_with_closest(df):
     # ready
